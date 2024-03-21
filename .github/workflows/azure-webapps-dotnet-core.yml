@@ -35,14 +35,14 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up .NET Core
+      - uses: actions/checkout@v2
+      - name: Set up .NET
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-version: '6.0.x' # For .NET 6
+          # or use '7.0.x' for .NET 7
+          include-prerelease: false
 
       - name: Set up dependency caching for faster builds
         uses: actions/cache@v3
