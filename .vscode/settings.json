@@ -1,0 +1,5 @@
+{
+    "appService.preDeployTask": "publish-release",
+    "appService.deploySubpath": "bin/Release/net8.0/publish",
+    "appService.defaultWebAppToDeploy": "undefined/subscriptions/675c80f2-986e-4458-b5f3-88bc366df5a9/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/secretAssignmentKoulu"
+}
