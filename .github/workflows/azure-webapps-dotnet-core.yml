@@ -37,12 +37,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Set up .NET
+      - name: Set up .NET SDK
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: '6.0.x' # For .NET 6
-          # or use '7.0.x' for .NET 7
-          include-prerelease: false
+          dotnet-version: '8.0.101' # Specify the .NET 8 SDK version
 
       - name: Set up dependency caching for faster builds
         uses: actions/cache@v3
