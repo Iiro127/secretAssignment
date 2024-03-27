@@ -1,3 +1,4 @@
+using Azure.Identity;
 using secretAssignment.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,11 +12,22 @@ builder.Services.AddSingleton<IKeyVaultSecretManager, KeyVaultSecretManager>();
 
 var app = builder.Build();
 
+app.UseSwagger();
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
+    builder.Configuration.AddUserSecrets<Program>();
+}
+else
+{
+    builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+         .AddEnvironmentVariables();
+
+    var keyVaultUrl = builder.Configuration["KeyVault:BaseUrl"];
+
+    builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), new DefaultAzureCredential());
 }
 
 app.MapControllers();
